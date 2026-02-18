@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+   <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo escalado a 45px-50px para evitar recuadros grandes -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Abogado Responsable</span>
+        <!-- Vinculado al campo foto_perfil de la tabla usuarios -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral de Módulos (Sidebar) -->
+        <nav class="sidebar">
+            <ul>
+                <li class="active"><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Contenido Principal -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Panel de Control Operativo</h1>
+                <p>Resumen de indicadores para la toma de decisiones.</p>
+            </section>
+
+            <!-- Tarjetas de Métricas (Basadas en RF-005) -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Expedientes Abiertos</h3>
+                    <p class="number">24</p>
+                </div>
+                <div class="metric-card warning">
+                    <h3>Plazos por Vencer (Hoy)</h3>
+                    <p class="number">3</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Documentos Pendientes</h3>
+                    <p class="number">12</p>
+                </div>
+                <div class="metric-card success">
+                    <h3>Casos Ganados (Mes)</h3>
+                    <p class="number">85%</p>
+                </div>
+            </div>
+
+            <!-- Espacio para futura integración de Gráficos (Metabase/KPIs) -->
+            <div class="placeholder-section">
+                <h3>Actuaciones Recientes</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Expediente</th>
+                            <th>Actuación</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>17/02/2026</td>
+                            <td>EXP-2026-001</td>
+                            <td>Presentación de Demanda</td>
+                            <td>Daniel Escalante</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

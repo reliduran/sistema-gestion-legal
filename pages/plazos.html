@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Plazos - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Asistente Legal</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li class="active"><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Control de Plazos (RF-003, RF-010, RF-011) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Agenda y Vencimientos Procesales</h1>
+                <p>Monitoreo de términos y programación de alertas SMTP.</p>
+            </section>
+
+            <div class="deadline-manager-grid">
+                <!-- Calculadora de Plazos (RF-010) -->
+                <div class="form-card">
+                    <h3>Calculadora de Términos</h3>
+                    <form id="calculatorForm">
+                        <div class="form-group">
+                            <label>Fecha de Notificación</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Días Otorgados</label>
+                                <input type="number" placeholder="Ej: 5" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Conteo</label>
+                                <select>
+                                    <option>Días Hábiles</option>
+                                    <option>Días Calendario</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary">Calcular Vencimiento</button>
+                        <hr>
+                        <div class="form-group">
+                            <label>Fecha de Vencimiento Resultante</label>
+                            <input type="text" readonly class="readonly-field" placeholder="Resultado del cálculo...">
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción del Plazo (RF-003)</label>
+                            <textarea rows="2" placeholder="Ej: Contestación de demanda..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Registrar y Programar Alertas</button>
+                    </form>
+                </div>
+
+                <!-- Visualización de Agenda (RF-011) -->
+                <div class="calendar-card">
+                    <h3>Calendario de Audiencias</h3>
+                    <div class="calendar-mockup">
+                        <div class="calendar-header">
+                            <span>Febrero 2026</span>
+                            <div class="calendar-nav"> &lt; | &gt; </div>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Simulación de días -->
+                            <div class="day-header">L</div><div class="day-header">M</div><div class="day-header">M</div><div class="day-header">J</div><div class="day-header">V</div><div class="day-header">S</div><div class="day-header">D</div>
+                            <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+                            <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+                            <div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day event-urgent">17</div><div class="day">18</div>
+                            <div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+                        </div>
+                        <div class="event-legend">
+                            <span class="legend-item"><span class="dot urgent"></span> Audiencia Próxima</span>
+                            <span class="legend-item"><span class="dot extension"></span> Prórroga</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración y Seguridad - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Administrador del Sistema</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li class="active"><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenido de Administración (RF-006, RF-009) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Seguridad y Gobierno del Sistema</h1>
+                <p>Gestión de identidades, roles y trazabilidad de auditoría.</p>
+            </section>
+
+            <div class="admin-grid">
+                <!-- Gestión de Usuarios (RF-006 / CU-02) -->
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3>Cuentas de Usuario</h3>
+                        <button class="btn-small success-bg">+ Nuevo Usuario</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre Completo</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="thumb-profile"></div></td>
+                                <td>Lic. Daniel Escalante</td>
+                                <td>Abogado</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button> <button class="btn-small danger-bg">Inhabilitar</button></td>
+                            </tr>
+                            <tr>
+                                <td><div class="thumb-profile"></div></td>
+                                <td>Ever Durán</td>
+                                <td>Coordinador</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button> <button class="btn-small danger-bg">Inhabilitar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Matriz de Permisos Dinámicos (RF-009 / CU-03) -->
+                <div class="table-card">
+                    <h3>Matriz de Permisos por Rol</h3>
+                    <div class="role-selector">
+                        <label>Configurar Rol:</label>
+                        <select>
+                            <option>Abogado Responsable</option>
+                            <option>Asistente Legal</option>
+                            <option>Director / Socio</option>
+                            <option>Personal de Archivo</option>
+                        </select>
+                    </div>
+                    <table class="permissions-table">
+                        <thead>
+                            <tr>
+                                <th>Módulo / Acción</th>
+                                <th>Crear</th>
+                                <th>Leer</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gestión de Expedientes</td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Gestión Documental</td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Cierre de Casos</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-primary" style="margin-top: 15px;">Guardar Configuración de Privilegios</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

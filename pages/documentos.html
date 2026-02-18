@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Documental - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Personal de Archivo</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li class="active"><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Carga de Documentos (RF-004) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Gestión Documental e Integridad</h1>
+                <p>Carga de archivos cumpliendo estándares notariales (Decreto 555).</p>
+            </section>
+
+            <div class="document-manager-grid">
+                <!-- Formulario de Clasificación -->
+                <div class="form-card">
+                    <h3>Clasificación del Documento</h3>
+                    <form id="uploadForm">
+                        <div class="form-group">
+                            <label>Expediente Vinculado</label>
+                            <input type="text" value="EXP-2024-001" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Documento</label>
+                            <select required>
+                                <option value="">Seleccione una categoría...</option>
+                                <option>Escritura Matriz</option>
+                                <option>Diligencia Judicial</option>
+                                <option>Prueba Documental</option>
+                                <option>Acta de Audiencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea rows="3" placeholder="Breve descripción del contenido..."></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Zona de Carga y Validación de DPI -->
+                <div class="upload-card">
+                    <h3>Carga de Archivo Digital</h3>
+                    <div class="drop-zone" id="dropZone">
+                        <span class="drop-zone-text">Arrastre aquí el archivo PDF o haga clic para buscar</span>
+                        <input type="file" name="myFile" class="drop-zone-input" accept=".pdf">
+                    </div>
+
+                    <!-- Indicador de Validación de 200 DPI -->
+                    <div class="dpi-validator" id="dpiIndicator">
+                        <div class="status-icon">ℹ️</div>
+                        <div class="status-text">
+                            <strong>Estado de Resolución:</strong>
+                            <p id="dpiStatus">Esperando archivo...</p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-success" style="width: 100%; margin-top: 20px;">
+                        Archivar en Expediente Digital
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

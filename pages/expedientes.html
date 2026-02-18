@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Expedientes - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+   <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Abogado Responsable</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li class="active"><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Apertura de Expedientes (RF-002) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Apertura y Asignación de Casos</h1>
+                <p>Generación de Código Único y vinculación de partes procesales.</p>
+            </section>
+
+            <div class="case-manager-grid">
+                <!-- Formulario de Apertura (CU-08) -->
+                <div class="form-card">
+                    <h3>Ficha de Nuevo Expediente</h3>
+                    <form id="caseForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Código Único (Auto-generado)</label>
+                                <input type="text" value="EXP-2026-002" readonly class="readonly-field">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Apertura</label>
+                                <input type="date" value="2026-02-18" readonly class="readonly-field">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cliente (Demandante/Denunciante)</label>
+                            <select required>
+                                <option value="">Seleccione cliente...</option>
+                                <option>Distribuidora de Oriente (01234567-8)</option>
+                                <option>María Elena Vásquez (87654321-0)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contraparte (Demandado/Denunciado)</label>
+                            <input type="text" placeholder="Nombre de la contraparte" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Materia</label>
+                                <select required>
+                                    <option>Laboral</option>
+                                    <option>Civil</option>
+                                    <option>Penal</option>
+                                    <option>Familia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Etapa Procesal Inicial</label>
+                                <select required>
+                                    <option>Investigación Previa</option>
+                                    <option>Presentación de Demanda</option>
+                                    <option>Conciliación</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Abogado Responsable</label>
+                            <select required>
+                                <option>Lic. Daniel Escalante</option>
+                                <option>Lic. Ever Durán</option>
+                                <option>Lic. Isaías Erazo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Título del Caso / Resumen</label>
+                            <textarea rows="2" placeholder="Ej: Reclamación de salarios caídos..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%;">
+                            Confirmar Apertura de Expediente
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Historial de Últimos Expedientes -->
+                <div class="table-card">
+                    <h3>Expedientes Aperturados Recientemente</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Materia</th>
+                                <th>Responsable</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EXP-2026-001</td>
+                                <td>Civil</td>
+                                <td>D. Escalante</td>
+                                <td><span class="badge success">Abierto</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

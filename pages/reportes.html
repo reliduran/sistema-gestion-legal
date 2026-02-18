@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes e Indicadores - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Director / Socio</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li class="active"><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Inteligencia de Negocios (RF-005, RF-016, RF-017) -->
+        <main class="content-area">
+            <section class="welcome-header report-header">
+                <div>
+                    <h1>Analítica y Rendimiento Institucional</h1>
+                    <p>Monitoreo de KPIs y efectividad procesal en tiempo real.</p>
+                </div>
+                <!-- Botón de Exportación (RF-018) -->
+                <button class="btn-export" onclick="alert('Iniciando descarga de datos crudos (CSV/Excel) para auditoría...')">
+                    📥 Exportar para Auditoría
+                </button>
+            </section>
+
+            <div class="reports-grid">
+                <!-- Gráfico de Efectividad (RF-017) -->
+                <div class="chart-card">
+                    <h3>Efectividad Procesal (Ganados vs. Perdidos)</h3>
+                    <div class="chart-placeholder pie-chart">
+                        <div class="pie-segment success" style="--val: 65;"></div>
+                        <div class="pie-segment danger" style="--val: 20;"></div>
+                        <div class="pie-segment warning" style="--val: 15;"></div>
+                    </div>
+                    <div class="chart-legend">
+                        <span><span class="dot success"></span> Ganados (65%)</span>
+                        <span><span class="dot danger"></span> Perdidos (20%)</span>
+                        <span><span class="dot warning"></span> Conciliados (15%)</span>
+                    </div>
+                </div>
+
+                <!-- Carga Laboral por Abogado (RF-016) -->
+                <div class="chart-card">
+                    <h3>Carga Laboral por Responsable (Expedientes Activos)</h3>
+                    <div class="bar-chart-mockup">
+                        <div class="bar-group"><span>Lic. Escalante</span> <div class="bar" style="width: 85%;"></div> <span>24</span></div>
+                        <div class="bar-group"><span>Lic. Durán</span> <div class="bar" style="width: 60%;"></div> <span>18</span></div>
+                        <div class="bar-group"><span>Lic. Erazo</span> <div class="bar" style="width: 45%;"></div> <span>12</span></div>
+                    </div>
+                </div>
+
+                <!-- Tabla de KPIs Críticos (RF-005) -->
+                <div class="table-card wide">
+                    <h3>Métricas de Cumplimiento de Plazos</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>Plazos Totales</th>
+                                <th>Atendidos a Tiempo</th>
+                                <th>Vencidos</th>
+                                <th>% Eficacia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Enero 2026</td>
+                                <td>145</td>
+                                <td>140</td>
+                                <td>5</td>
+                                <td class="success-text">96.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Febrero 2026</td>
+                                <td>98</td>
+                                <td>92</td>
+                                <td>6</td>
+                                <td class="warning-text">93.8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

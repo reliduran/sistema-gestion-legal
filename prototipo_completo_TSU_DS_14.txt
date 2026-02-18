@@ -1,0 +1,1470 @@
+Sistema de Gestión de Expedientes Legales
+Procuraduría de Casos Integrales (FPCI)
+
+Este repositorio contiene el prototipo de alta fidelidad (Capa de Vista) desarrollado para la Escuela Superior de Innovación y Tecnología (ESIT), como parte del entregable de la Fase 2: Modelado del Sistema.
+
+📋 Descripción del Proyecto
+El sistema es una solución web corporativa diseñada para la gestión integral de casos judiciales, permitiendo centralizar expedientes, controlar plazos procesales y asegurar la integridad documental bajo normativas salvadoreñas.
+
+🛠️ Arquitectura y Tecnologías
+Siguiendo los lineamientos de la ESIT, el proyecto adopta una arquitectura, Modelo-Vista-Controlador (MVC):
+- Vista: HTML5, CSS3 y JavaScript (Prototipo actual).
+- Modelo: Base de datos relacional MySQL (Normalizada a 3FN).
+- Controlador: Lógica de negocio proyectada en PHP/Python.
+
+📦 Módulos Funcionales (SRS v1.8)
+El sistema se descompone en seis ejes operativos definidos en el Diagrama de Nivel 1:
+1. Administración y Seguridad: Control de acceso (RF-000) y gestión de roles con segregación de funciones.
+2. Gestión de Clientes: Captura obligatoria de Consentimiento Informado conforme al Decreto N.º 144.
+3. Gestión de Expedientes: Generación de Código Único de Expediente y asignación de responsables (RF-002).
+4. Control de Plazos: Agenda legal con alertas preventivas SMTP y cálculo automático de días hábiles (RF-010).
+5. Gestión Documental: Validador técnico de 200 DPI para cumplimiento notarial según el Decreto 555.
+6. Reportes e Indicadores: Tableros de control de efectividad procesal y carga laboral (KPIs).
+
+⚖️ Cumplimiento Normativo
+El diseño de este prototipo valida visualmente los requerimientos críticos exigidos:
+- RF-001: Casilla de consentimiento para Protección de Datos Personales.
+- RF-004: Restricción de resolución técnica mínima para archivos PDF.
+- RNF-SEG-03: Preparación de campos para la trazabilidad completa en la bitácora de auditoría.
+
+🚀 Configuración para Visualización Local
+Para ejecutar el prototipo en un entorno de desarrollo:
+1. Clonar este repositorio en la carpeta `htdocs` de su servidor local (MAMP/XAMPP).
+2. Asegurar que el archivo `logo.png` se encuentre en `assets/img/`.
+3. Abrir el archivo `index.html` desde el navegador mediante `localhost/sistema-gestion-legal/`.
+
+👥 Desarrolladores (TSU-DS-14)
+- Rubén Elí Durán Ramiréz
+- Daniel Andrés Escalante Lemus
+- Ever Daniel Durán Hernández
+- Isaías Alexander Erazo Martínez
+
+---
+Este proyecto es un entregable académico para la Escuela Superior de Innovación y Tecnología (ESIT), febrero 2026.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <img src="assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+</header>
+
+    <!-- Contenedor Principal de Login -->
+    <main class="login-container">
+        <div class="login-card">
+            <h2>Inicio de Sesión</h2>
+            <p class="subtitle">Ingrese sus credenciales para acceder al sistema</p>
+            
+            <form action="pages/dashboard.html" method="POST">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@institucion.gob.sv" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Ingresar</button>
+                
+                <div class="form-footer">
+                    <a href="#">¿Olvidó su contraseña?</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de Página de Seguridad -->
+    <footer class="login-footer">
+        <p>Acceso restringido. Las credenciales son procesadas mediante algoritmos de cifrado robustos.</p>
+        <p>© 2026 - Protección de datos bajo el Decreto N.º 144.</p>
+    </footer>
+</body>
+</html>/* Paleta de Colores Institucionales */
+:root {
+    --azul-medianoche: #1a237e;
+    --blanco-institucional: #ffffff;
+    --gris-fondo: #f5f5f5;
+    --gris-texto: #333333;
+    --gris-borde: #dddddd;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--gris-fondo);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header - Control del Logo y Color (ACTUALIZADO) */
+.main-header {
+    background-color: var(--azul-medianoche); /* Mantiene el #1a237e institucional */
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 45px; /* Control de dimensiones para logo.png */
+    width: auto;
+    margin-right: 15px;
+}
+
+/* Permite apilar el nombre de la institución y del sistema */
+.header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+/* Se cambió de font-size 1.2rem a 1.1rem y se agregó display: block */
+.institution-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+}
+
+/* Define el estilo para "Sistema de Gestión de Expedientes Legales" */
+.system-name {
+    font-size: 0.8rem;
+    font-weight: normal;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+}
+
+
+/* Tarjeta de Login */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-card {
+    background-color: var(--blanco-institucional);
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 { color: var(--azul-medianoche); margin-bottom: 5px; }
+.subtitle { color: #666; font-size: 0.9rem; margin-bottom: 30px; }
+
+/* Formularios */
+.form-group { text-align: left; margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 4px;
+    box-sizing: border-box; /* Evita que el input se salga de la tarjeta */
+}
+
+.btn-primary {
+    background-color: var(--azul-medianoche);
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover { background-color: #0d125a; }
+
+.form-footer { margin-top: 15px; }
+.form-footer a { color: var(--azul-medianoche); text-decoration: none; font-size: 0.85rem; }
+
+/* Footer */
+.login-footer {
+    padding: 20px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* Layout del Dashboard */
+.dashboard-body { overflow: hidden; height: 100vh; }
+.main-wrapper { display: flex; flex: 1; overflow: hidden; }
+
+/* Estilos de Sidebar */
+.sidebar {
+    width: 280px;
+    background-color: #f0f0f0;
+    border-right: 1px solid var(--gris-borde);
+    padding: 20px 0;
+}
+
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar li a {
+    display: block;
+    padding: 12px 25px;
+    color: var(--gris-texto);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.sidebar li.active a, .sidebar li a:hover {
+    background-color: var(--azul-medianoche);
+    color: white;
+}
+
+.logout-item { margin-top: 50px; border-top: 1px solid #ddd; }
+
+/* Área de Contenido */
+.content-area { flex: 1; padding: 30px; overflow-y: auto; }
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.metric-card {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    border-left: 5px solid var(--azul-medianoche);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.metric-card.warning { border-left-color: #f44336; }
+.metric-card.success { border-left-color: #4caf50; }
+.metric-card .number { font-size: 2rem; font-weight: bold; margin: 10px 0 0 0; }
+
+/* Perfil de Usuario en Header */
+.user-profile { display: flex; align-items: center; margin-left: auto; }
+.profile-circle {
+    width: 35px;
+    height: 35px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-left: 10px;
+    border: 2px solid white;
+}
+
+/* Tablas */
+.data-table { width: 100%; border-collapse: collapse; background: white; margin-top: 15px; }
+.data-table th, .data-table td { padding: 12px; border: 1px solid #eee; text-align: left; }
+.data-table th { background: #fafafa; color: var(--azul-medianoche); }
+
+/* Gestión Documental */
+.document-manager-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.form-card, .upload-card {
+    background: white;
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Zona de Arrastre (Drag & Drop) */
+.drop-zone {
+    height: 150px;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px dashed var(--azul-medianoche);
+    border-radius: 4px;
+    background-color: #f8f9ff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.drop-zone:hover { background-color: #f0f2ff; }
+
+/* Validador de DPI (RF-004) */
+.dpi-validator {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    background-color: #fff3e0; /* Color inicial de advertencia */
+    border-left: 5px solid #ff9800;
+}
+
+.dpi-validator.success {
+    background-color: #e8f5e9;
+    border-left-color: #4caf50;
+}
+
+.dpi-validator.error {
+    background-color: #ffebee;
+    border-left-color: #f44336;
+}
+
+.status-icon { font-size: 1.5rem; margin-right: 15px; }
+.status-text p { margin: 5px 0 0 0; font-size: 0.9rem; }
+
+.btn-success {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Gestión de Clientes */
+.client-manager-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.table-card {
+    background: white;
+    padding: 25px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Caja de Consentimiento (Decreto 144) */
+.consent-box {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #90caf9;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.consent-box input { margin-top: 4px; margin-right: 12px; }
+.consent-box label { font-size: 0.85rem; color: #1565c0; line-height: 1.4; cursor: pointer; }
+
+/* Badges de Estado */
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge.success { background-color: #e8f5e9; color: #2e7d32; }
+
+.btn-small {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    background-color: var(--azul-medianoche);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+/* Gestión de Expedientes */
+.case-manager-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.readonly-field {
+    background-color: #f0f0f0;
+    color: #666;
+    border-style: dashed !important;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--gris-borde);
+    border-radius: 4px;
+    background-color: white;
+}
+/* Control de Plazos */
+.deadline-manager-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 25px;
+}
+
+.btn-secondary {
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Calendario Mockup (RF-011) */
+.calendar-mockup {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--azul-medianoche);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background-color: #eee;
+}
+
+.day-header {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.day {
+    background-color: white;
+    height: 60px;
+    padding: 5px;
+    font-size: 0.8rem;
+    position: relative;
+}
+
+.day.event-urgent {
+    background-color: #ffebee;
+    border: 1px solid #f44336;
+}
+
+.day.event-urgent::after {
+    content: "Audiencia 10am";
+    font-size: 0.6rem;
+    color: #c62828;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.event-legend {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+}
+
+.legend-item { font-size: 0.75rem; display: flex; align-items: center; }
+.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+.dot.urgent { background-color: #f44336; }
+.dot.extension { background-color: #ffa000; }
+
+/* Módulo de Reportes */
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.reports-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.chart-card {
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.wide { grid-column: span 2; }
+
+/* Simulación de Gráfico de Pastel (RF-017) */
+.chart-placeholder.pie-chart {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: conic-gradient(#4caf50 0% 65%, #f44336 65% 85%, #ff9800 85% 100%);
+    margin: 20px auto;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 0.8rem;
+}
+
+/* Simulación de Gráfico de Barras (RF-016) */
+.bar-chart-mockup {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.bar-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.bar-group span:first-child { width: 100px; }
+
+.bar {
+    height: 20px;
+    background-color: var(--azul-medianoche);
+    border-radius: 2px;
+}
+
+/* Botón Exportar (RF-018) */
+.btn-export {
+    background-color: #455a64;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.success-text { color: #2e7d32; font-weight: bold; }
+.warning-text { color: #e65100; font-weight: bold; }
+
+/* Módulo de Administración */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 25px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.thumb-profile {
+    width: 30px;
+    height: 30px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.role-selector {
+    margin: 15px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+/* Tabla de Permisos (RF-009) */
+.permissions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.permissions-table th, .permissions-table td {
+    padding: 10px;
+    border: 1px solid #eee;
+    text-align: center;
+}
+
+.permissions-table td:first-child { text-align: left; font-weight: bold; }
+
+/* Colores de botones específicos */
+.success-bg { background-color: #2e7d32 !important; }
+.danger-bg { background-color: #c62828 !important; }<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración y Seguridad - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Administrador del Sistema</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li class="active"><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Contenido de Administración (RF-006, RF-009) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Seguridad y Gobierno del Sistema</h1>
+                <p>Gestión de identidades, roles y trazabilidad de auditoría.</p>
+            </section>
+
+            <div class="admin-grid">
+                <!-- Gestión de Usuarios (RF-006 / CU-02) -->
+                <div class="table-card">
+                    <div class="card-header">
+                        <h3>Cuentas de Usuario</h3>
+                        <button class="btn-small success-bg">+ Nuevo Usuario</button>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nombre Completo</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="thumb-profile"></div></td>
+                                <td>Lic. Daniel Escalante</td>
+                                <td>Abogado</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button> <button class="btn-small danger-bg">Inhabilitar</button></td>
+                            </tr>
+                            <tr>
+                                <td><div class="thumb-profile"></div></td>
+                                <td>Ever Durán</td>
+                                <td>Coordinador</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button> <button class="btn-small danger-bg">Inhabilitar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Matriz de Permisos Dinámicos (RF-009 / CU-03) -->
+                <div class="table-card">
+                    <h3>Matriz de Permisos por Rol</h3>
+                    <div class="role-selector">
+                        <label>Configurar Rol:</label>
+                        <select>
+                            <option>Abogado Responsable</option>
+                            <option>Asistente Legal</option>
+                            <option>Director / Socio</option>
+                            <option>Personal de Archivo</option>
+                        </select>
+                    </div>
+                    <table class="permissions-table">
+                        <thead>
+                            <tr>
+                                <th>Módulo / Acción</th>
+                                <th>Crear</th>
+                                <th>Leer</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Gestión de Expedientes</td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Gestión Documental</td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox" checked></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>Cierre de Casos</td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                                <td><input type="checkbox"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-primary" style="margin-top: 15px;">Guardar Configuración de Privilegios</button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+   <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Coordinador de Area</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li class="active"><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Gestión de Clientes (RF-001) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Identidad de Clientes y Consentimiento</h1>
+                <p>Registro de personas naturales/jurídicas bajo estándares del Decreto 144.</p>
+            </section>
+
+            <div class="client-manager-grid">
+                <!-- Formulario de Registro (CU-04) -->
+                <div class="form-card">
+                    <h3>Nuevo Registro de Cliente</h3>
+                    <form id="clientForm">
+                        <div class="form-group">
+                            <label>Nombre o Razón Social</label>
+                            <input type="text" placeholder="Ej: Juan Pérez o Empresa S.A." required>
+                        </div>
+                        <div class="form-group">
+                            <label>DUI / NIT</label>
+                            <input type="text" placeholder="00000000-0" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección de Contacto</label>
+                            <input type="text" placeholder="Calle, ciudad, departamento" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono</label>
+                            <input type="tel" placeholder="2200-0000" required>
+                        </div>
+                        
+                        <!-- Casilla Obligatoria Decreto 144 -->
+                        <div class="consent-box">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <label for="consent">
+                                <strong>Consentimiento Informado:</strong> El cliente autoriza el tratamiento de sus datos personales conforme a la Ley de Protección de Datos (Art. 14).
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">
+                            Registrar Cliente
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Listado de Clientes (Simulación de búsqueda) -->
+                <div class="table-card">
+                    <h3>Directorio de Clientes</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>DUI/NIT</th>
+                                <th>Nombre / Razón Social</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01234567-8</td>
+                                <td>Distribuidora de Oriente</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>87654321-0</td>
+                                <td>María Elena Vásquez</td>
+                                <td><span class="badge success">Activo</span></td>
+                                <td><button class="btn-small">Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+   <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo escalado a 45px-50px para evitar recuadros grandes -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Abogado Responsable</span>
+        <!-- Vinculado al campo foto_perfil de la tabla usuarios -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral de Módulos (Sidebar) -->
+        <nav class="sidebar">
+            <ul>
+                <li class="active"><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Contenido Principal -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Panel de Control Operativo</h1>
+                <p>Resumen de indicadores para la toma de decisiones.</p>
+            </section>
+
+            <!-- Tarjetas de Métricas (Basadas en RF-005) -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Expedientes Abiertos</h3>
+                    <p class="number">24</p>
+                </div>
+                <div class="metric-card warning">
+                    <h3>Plazos por Vencer (Hoy)</h3>
+                    <p class="number">3</p>
+                </div>
+                <div class="metric-card">
+                    <h3>Documentos Pendientes</h3>
+                    <p class="number">12</p>
+                </div>
+                <div class="metric-card success">
+                    <h3>Casos Ganados (Mes)</h3>
+                    <p class="number">85%</p>
+                </div>
+            </div>
+
+            <!-- Espacio para futura integración de Gráficos (Metabase/KPIs) -->
+            <div class="placeholder-section">
+                <h3>Actuaciones Recientes</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Expediente</th>
+                            <th>Actuación</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>17/02/2026</td>
+                            <td>EXP-2026-001</td>
+                            <td>Presentación de Demanda</td>
+                            <td>Daniel Escalante</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Documental - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Personal de Archivo</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li class="active"><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Carga de Documentos (RF-004) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Gestión Documental e Integridad</h1>
+                <p>Carga de archivos cumpliendo estándares notariales (Decreto 555).</p>
+            </section>
+
+            <div class="document-manager-grid">
+                <!-- Formulario de Clasificación -->
+                <div class="form-card">
+                    <h3>Clasificación del Documento</h3>
+                    <form id="uploadForm">
+                        <div class="form-group">
+                            <label>Expediente Vinculado</label>
+                            <input type="text" value="EXP-2024-001" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo de Documento</label>
+                            <select required>
+                                <option value="">Seleccione una categoría...</option>
+                                <option>Escritura Matriz</option>
+                                <option>Diligencia Judicial</option>
+                                <option>Prueba Documental</option>
+                                <option>Acta de Audiencia</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea rows="3" placeholder="Breve descripción del contenido..."></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Zona de Carga y Validación de DPI -->
+                <div class="upload-card">
+                    <h3>Carga de Archivo Digital</h3>
+                    <div class="drop-zone" id="dropZone">
+                        <span class="drop-zone-text">Arrastre aquí el archivo PDF o haga clic para buscar</span>
+                        <input type="file" name="myFile" class="drop-zone-input" accept=".pdf">
+                    </div>
+
+                    <!-- Indicador de Validación de 200 DPI -->
+                    <div class="dpi-validator" id="dpiIndicator">
+                        <div class="status-icon">ℹ️</div>
+                        <div class="status-text">
+                            <strong>Estado de Resolución:</strong>
+                            <p id="dpiStatus">Esperando archivo...</p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-success" style="width: 100%; margin-top: 20px;">
+                        Archivar en Expediente Digital
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Expedientes - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+   <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Abogado Responsable</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li class="active"><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Apertura de Expedientes (RF-002) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Apertura y Asignación de Casos</h1>
+                <p>Generación de Código Único y vinculación de partes procesales.</p>
+            </section>
+
+            <div class="case-manager-grid">
+                <!-- Formulario de Apertura (CU-08) -->
+                <div class="form-card">
+                    <h3>Ficha de Nuevo Expediente</h3>
+                    <form id="caseForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Código Único (Auto-generado)</label>
+                                <input type="text" value="EXP-2026-002" readonly class="readonly-field">
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Apertura</label>
+                                <input type="date" value="2026-02-18" readonly class="readonly-field">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Cliente (Demandante/Denunciante)</label>
+                            <select required>
+                                <option value="">Seleccione cliente...</option>
+                                <option>Distribuidora de Oriente (01234567-8)</option>
+                                <option>María Elena Vásquez (87654321-0)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contraparte (Demandado/Denunciado)</label>
+                            <input type="text" placeholder="Nombre de la contraparte" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Materia</label>
+                                <select required>
+                                    <option>Laboral</option>
+                                    <option>Civil</option>
+                                    <option>Penal</option>
+                                    <option>Familia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Etapa Procesal Inicial</label>
+                                <select required>
+                                    <option>Investigación Previa</option>
+                                    <option>Presentación de Demanda</option>
+                                    <option>Conciliación</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Abogado Responsable</label>
+                            <select required>
+                                <option>Lic. Daniel Escalante</option>
+                                <option>Lic. Ever Durán</option>
+                                <option>Lic. Isaías Erazo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Título del Caso / Resumen</label>
+                            <textarea rows="2" placeholder="Ej: Reclamación de salarios caídos..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="width: 100%;">
+                            Confirmar Apertura de Expediente
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Historial de Últimos Expedientes -->
+                <div class="table-card">
+                    <h3>Expedientes Aperturados Recientemente</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Materia</th>
+                                <th>Responsable</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EXP-2026-001</td>
+                                <td>Civil</td>
+                                <td>D. Escalante</td>
+                                <td><span class="badge success">Abierto</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Plazos - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Asistente Legal</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li class="active"><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Control de Plazos (RF-003, RF-010, RF-011) -->
+        <main class="content-area">
+            <section class="welcome-header">
+                <h1>Agenda y Vencimientos Procesales</h1>
+                <p>Monitoreo de términos y programación de alertas SMTP.</p>
+            </section>
+
+            <div class="deadline-manager-grid">
+                <!-- Calculadora de Plazos (RF-010) -->
+                <div class="form-card">
+                    <h3>Calculadora de Términos</h3>
+                    <form id="calculatorForm">
+                        <div class="form-group">
+                            <label>Fecha de Notificación</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Días Otorgados</label>
+                                <input type="number" placeholder="Ej: 5" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Conteo</label>
+                                <select>
+                                    <option>Días Hábiles</option>
+                                    <option>Días Calendario</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary">Calcular Vencimiento</button>
+                        <hr>
+                        <div class="form-group">
+                            <label>Fecha de Vencimiento Resultante</label>
+                            <input type="text" readonly class="readonly-field" placeholder="Resultado del cálculo...">
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción del Plazo (RF-003)</label>
+                            <textarea rows="2" placeholder="Ej: Contestación de demanda..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="width: 100%;">Registrar y Programar Alertas</button>
+                    </form>
+                </div>
+
+                <!-- Visualización de Agenda (RF-011) -->
+                <div class="calendar-card">
+                    <h3>Calendario de Audiencias</h3>
+                    <div class="calendar-mockup">
+                        <div class="calendar-header">
+                            <span>Febrero 2026</span>
+                            <div class="calendar-nav"> &lt; | &gt; </div>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Simulación de días -->
+                            <div class="day-header">L</div><div class="day-header">M</div><div class="day-header">M</div><div class="day-header">J</div><div class="day-header">V</div><div class="day-header">S</div><div class="day-header">D</div>
+                            <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+                            <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+                            <div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day event-urgent">17</div><div class="day">18</div>
+                            <div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+                        </div>
+                        <div class="event-legend">
+                            <span class="legend-item"><span class="dot urgent"></span> Audiencia Próxima</span>
+                            <span class="legend-item"><span class="dot extension"></span> Prórroga</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes e Indicadores - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="dashboard-body">
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <!-- Logo institucional escalado según CSS -->
+        <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+    
+    <div class="user-profile">
+        <span>Director / Socio</span>
+        <!-- Representación de foto_perfil (RF-000) -->
+        <div class="profile-circle"></div>
+    </div>
+</header>
+
+
+    <div class="main-wrapper">
+        <!-- Menú Lateral -->
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html">🏠 Inicio (Dashboard)</a></li>
+                <li><a href="administracion.html">🛡️ Administración y Seguridad</a></li>
+                <li><a href="clientes.html">👥 Gestión de Clientes</a></li>
+                <li><a href="expedientes.html">📁 Gestión de Expedientes</a></li>
+                <li><a href="plazos.html">⚖️ Control de Plazos</a></li>
+                <li><a href="documentos.html">📄 Gestión Documental</a></li>
+                <li class="active"><a href="reportes.html">📊 Reportes e Indicadores</a></li>
+                <li class="logout-item"><a href="../index.html">🚪 Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+
+        <!-- Área de Inteligencia de Negocios (RF-005, RF-016, RF-017) -->
+        <main class="content-area">
+            <section class="welcome-header report-header">
+                <div>
+                    <h1>Analítica y Rendimiento Institucional</h1>
+                    <p>Monitoreo de KPIs y efectividad procesal en tiempo real.</p>
+                </div>
+                <!-- Botón de Exportación (RF-018) -->
+                <button class="btn-export" onclick="alert('Iniciando descarga de datos crudos (CSV/Excel) para auditoría...')">
+                    📥 Exportar para Auditoría
+                </button>
+            </section>
+
+            <div class="reports-grid">
+                <!-- Gráfico de Efectividad (RF-017) -->
+                <div class="chart-card">
+                    <h3>Efectividad Procesal (Ganados vs. Perdidos)</h3>
+                    <div class="chart-placeholder pie-chart">
+                        <div class="pie-segment success" style="--val: 65;"></div>
+                        <div class="pie-segment danger" style="--val: 20;"></div>
+                        <div class="pie-segment warning" style="--val: 15;"></div>
+                    </div>
+                    <div class="chart-legend">
+                        <span><span class="dot success"></span> Ganados (65%)</span>
+                        <span><span class="dot danger"></span> Perdidos (20%)</span>
+                        <span><span class="dot warning"></span> Conciliados (15%)</span>
+                    </div>
+                </div>
+
+                <!-- Carga Laboral por Abogado (RF-016) -->
+                <div class="chart-card">
+                    <h3>Carga Laboral por Responsable (Expedientes Activos)</h3>
+                    <div class="bar-chart-mockup">
+                        <div class="bar-group"><span>Lic. Escalante</span> <div class="bar" style="width: 85%;"></div> <span>24</span></div>
+                        <div class="bar-group"><span>Lic. Durán</span> <div class="bar" style="width: 60%;"></div> <span>18</span></div>
+                        <div class="bar-group"><span>Lic. Erazo</span> <div class="bar" style="width: 45%;"></div> <span>12</span></div>
+                    </div>
+                </div>
+
+                <!-- Tabla de KPIs Críticos (RF-005) -->
+                <div class="table-card wide">
+                    <h3>Métricas de Cumplimiento de Plazos</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Mes</th>
+                                <th>Plazos Totales</th>
+                                <th>Atendidos a Tiempo</th>
+                                <th>Vencidos</th>
+                                <th>% Eficacia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Enero 2026</td>
+                                <td>145</td>
+                                <td>140</td>
+                                <td>5</td>
+                                <td class="success-text">96.5%</td>
+                            </tr>
+                            <tr>
+                                <td>Febrero 2026</td>
+                                <td>98</td>
+                                <td>92</td>
+                                <td>6</td>
+                                <td class="warning-text">93.8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
