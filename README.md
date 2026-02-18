@@ -39,7 +39,7 @@ Para ejecutar el prototipo en un entorno de desarrollo:
 - Ever Daniel Durán Hernández
 - Isaías Alexander Erazo Martínez
 
-🖥️ Prototipo Interactivo (Mockup de Alta Fidelidad) Para validar la experiencia de usuario (UX), el diseño de interfaz (UI) y la navegación fluida entre los seis módulos operativos, se ha desplegado una versión interactiva de la Capa de Vista mediante GitHub Pages.
+🖥️ Prototipo Interactivo y Responsivo (Mockup de Alta Fidelidad) Para validar la experiencia de usuario (UX), el diseño de interfaz (UI) y la navegación fluida entre los seis módulos operativos, se ha desplegado una versión interactiva de la Capa de Vista mediante GitHub Pages.
 
 Instrucciones de Acceso:
 
