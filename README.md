@@ -39,5 +39,15 @@ Para ejecutar el prototipo en un entorno de desarrollo:
 - Ever Daniel Durán Hernández
 - Isaías Alexander Erazo Martínez
 
+🖥️ Prototipo Interactivo (Mockup de Alta Fidelidad) Para validar la experiencia de usuario (UX), el diseño de interfaz (UI) y la navegación fluida entre los seis módulos operativos, se ha desplegado una versión interactiva de la Capa de Vista mediante GitHub Pages.
+
+Instrucciones de Acceso:
+
+URL del Sistema: https://reliduran.github.io/sistema-gestion-legal/
+Credenciales de prueba:
+Usuario: test@legalcase.com
+Contraseña: mockup
+Nota Técnica para Evaluación: Este prototipo permite verificar la transición entre pantallas y el cumplimiento visual de requerimientos críticos como el validador de 200 DPI (RF-004) y el consentimiento del Decreto 144 (RF-001). Al ser un entorno estático de modelado, el formulario de acceso utiliza el método GET para facilitar la navegación sin requerir servicios de backend activos en esta fase.
+
 ---
 Este proyecto es un entregable académico para la Escuela Superior de Innovación y Tecnología (ESIT), febrero 2026.

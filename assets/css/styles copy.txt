@@ -539,9 +539,73 @@ select {
 .success-bg { background-color: #2e7d32 !important; }
 .danger-bg { background-color: #c62828 !important; }
 
-/* --- SOLUCIÓN TÉCNICA FINAL (RNF-USE-01) --- */
+/* --- Ajustes de Responsividad para el Prototipo FPCI (RNF-USE-01) --- */
 
-/* Estilo del botón hamburguesa que debe ir en el HTML */
+{
+    /* 1. Reorientación del Layout Principal */
+    .main-wrapper {
+        flex-direction: column; /* Cambia de fila a columna para apilar Sidebar y Contenido */
+    }
+
+    /* 2. Ajuste del Sidebar a ancho completo */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--gris-borde);
+    }
+
+    /* 3. Reducción de Escala del Encabezado Institucional */
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .logo-container {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .institution-name {
+        font-size: 0.9rem; /* Reduce de 1.1rem para evitar desbordamiento */
+    }
+
+    .system-name {
+        font-size: 0.7rem;
+    }
+
+    .user-profile {
+        display: none; /* Oculta el perfil en móvil para ganar espacio vertical */
+    }
+
+    /* 4. Conversión de Grillas a una sola columna */
+    .metrics-grid, 
+    .document-manager-grid, 
+    .deadline-manager-grid, 
+    .reports-grid, 
+    .admin-grid {
+        grid-template-columns: 1fr !important; /* Fuerza una columna en todos los módulos */
+    }
+
+    /* 5. Ajuste de formularios y tablas */
+    .form-row {
+        grid-template-columns: 1fr; /* Apila campos de nombre/apellido o materia/juzgado */
+    }
+
+    .content-area {
+        padding: 15px;
+    }
+
+    .data-table {
+        display: block;
+        overflow-x: auto; /* Permite scroll horizontal en tablas de expedientes/clientes */
+    }
+}
+
+/* --- Lógica de Menú Colapsable (RNF-USE-01) --- */
+
+/* Estilo del botón en el header */
 .menu-btn {
     background: none;
     border: none;
@@ -549,55 +613,43 @@ select {
     font-size: 1.5rem;
     cursor: pointer;
     margin-right: 15px;
-    display: none; /* Oculto en computadoras */
+    display: block; /* Visible por defecto */
 }
 
 @media (max-width: 768px) {
-    .menu-btn { display: block; } /* Aparece en celulares */
-
-    /* 1. LIBERAR EL CONTENIDO: Anula el bloqueo de las líneas 328/366 */
-    .dashboard-body {
-        height: auto !important; 
-        overflow-y: auto !important; /* Permite bajar con el dedo */
-    }
-
-    .main-wrapper {
-        flex-direction: column !important; /* Apila el menú sobre el contenido */
-        height: auto !important;
-        overflow: visible !important;
-    }
-
-    /* 2. SIDEBAR COLAPSABLE: Se oculta a la izquierda */
+    /* 1. Ocultamos el Sidebar por defecto en móvil */
     .sidebar {
-        position: fixed !important;
-        left: -280px; /* Fuera de pantalla */
-        top: 65px;
-        width: 280px !important;
-        height: calc(100vh - 65px) !important;
+        position: fixed;
+        left: -280px; /* Lo saca de la pantalla */
+        top: 65px; /* Debajo del header */
+        height: calc(100vh - 65px);
         z-index: 1000;
         transition: 0.3s;
-        background-color: #f0f0f0;
         box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     }
 
-    /* Clase que activa el JavaScript del PDF */
+    /* 2. Cuando se activa, el menú entra desde la izquierda */
     .sidebar.active {
-        left: 0 !important;
+        left: 0;
     }
 
-    /* 3. ELIMINAR EL MARCO PEQUEÑO: El contenido ocupa su tamaño real */
+    /* 3. El contenido ahora ocupa TODA la pantalla sin comprimirse */
     .content-area {
-        flex: none !important; /* Evita que la caja colapse */
+        flex: 1 !important;
         width: 100% !important;
-        height: auto !important;
         padding: 15px !important;
-        overflow: visible !important;
+        height: auto !important; /* Arregla el error de los 10px */
+        overflow-y: visible !important;
     }
 
-    /* Ajuste de Grillas (RF-004, RF-005) */
-    .metrics-grid, .document-manager-grid, .deadline-manager-grid, .reports-grid, .admin-grid {
-        grid-template-columns: 1fr !important;
+    /* 4. Liberamos el Dashboard del bloqueo de altura */
+    .dashboard-body {
+        height: auto !important;
+        overflow: auto !important;
     }
-    
-    .user-profile { display: none; } /* Ganamos espacio en el header */
+}
+
+/* Ocultar botón en computadoras (opcional) */
+@media (min-width: 769px) {
+    .menu-btn { display: none; }
 }

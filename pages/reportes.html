@@ -9,6 +9,8 @@
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
     <header class="main-header">
+         <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -115,5 +117,14 @@
             </div>
         </main>
     </div>
+ <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>

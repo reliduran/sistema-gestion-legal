@@ -1,99 +1,65 @@
-Sistema de Gestión de Expedientes Legales
-Procuraduría de Casos Integrales (FPCI)
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
 
-Este repositorio contiene el prototipo de alta fidelidad (Capa de Vista) desarrollado para la Escuela Superior de Innovación y Tecnología (ESIT), como parte del entregable de la Fase 2: Modelado del Sistema.
+<file_summary>
+This section contains a summary of this file.
 
-📋 Descripción del Proyecto
-El sistema es una solución web corporativa diseñada para la gestión integral de casos judiciales, permitiendo centralizar expedientes, controlar plazos procesales y asegurar la integridad documental bajo normativas salvadoreñas.
+<purpose>
+This file contains a packed representation of a subset of the repository's contents that is considered the most important context.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
 
-🛠️ Arquitectura y Tecnologías
-Siguiendo los lineamientos de la ESIT, el proyecto adopta una arquitectura, Modelo-Vista-Controlador (MVC):
-- Vista: HTML5, CSS3 y JavaScript (Prototipo actual).
-- Modelo: Base de datos relacional MySQL (Normalizada a 3FN).
-- Controlador: Lógica de negocio proyectada en PHP/Python.
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
 
-📦 Módulos Funcionales (SRS v1.8)
-El sistema se descompone en seis ejes operativos definidos en el Diagrama de Nivel 1:
-1. Administración y Seguridad: Control de acceso (RF-000) y gestión de roles con segregación de funciones.
-2. Gestión de Clientes: Captura obligatoria de Consentimiento Informado conforme al Decreto N.º 144.
-3. Gestión de Expedientes: Generación de Código Único de Expediente y asignación de responsables (RF-002).
-4. Control de Plazos: Agenda legal con alertas preventivas SMTP y cálculo automático de días hábiles (RF-010).
-5. Gestión Documental: Validador técnico de 200 DPI para cumplimiento notarial según el Decreto 555.
-6. Reportes e Indicadores: Tableros de control de efectividad procesal y carga laboral (KPIs).
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
 
-⚖️ Cumplimiento Normativo
-El diseño de este prototipo valida visualmente los requerimientos críticos exigidos:
-- RF-001: Casilla de consentimiento para Protección de Datos Personales.
-- RF-004: Restricción de resolución técnica mínima para archivos PDF.
-- RNF-SEG-03: Preparación de campos para la trazabilidad completa en la bitácora de auditoría.
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: **/*.php, **/*.html, **/*.css, **/*.js
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
 
-🚀 Configuración para Visualización Local
-Para ejecutar el prototipo en un entorno de desarrollo:
-1. Clonar este repositorio en la carpeta `htdocs` de su servidor local (MAMP/XAMPP).
-2. Asegurar que el archivo `logo.png` se encuentre en `assets/img/`.
-3. Abrir el archivo `index.html` desde el navegador mediante `localhost/sistema-gestion-legal/`.
+</file_summary>
 
-👥 Desarrolladores (TSU-DS-14)
-- Rubén Elí Durán Ramiréz
-- Daniel Andrés Escalante Lemus
-- Ever Daniel Durán Hernández
-- Isaías Alexander Erazo Martínez
+<directory_structure>
+assets/
+  css/
+    styles.css
+pages/
+  administracion.html
+  clientes.html
+  dashboard.html
+  documentos.html
+  expedientes.html
+  plazos.html
+  reportes.html
+index.html
+</directory_structure>
 
----
-Este proyecto es un entregable académico para la Escuela Superior de Innovación y Tecnología (ESIT), febrero 2026.
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso - Sistema de Gestión de Expedientes Legales</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
-</head>
-<body>
-    <!-- Encabezado Institucional -->
-    <header class="main-header">
-    <div class="logo-container">
-        <img src="assets/img/logo.png" alt="Logo FPCI" class="logo-img">
-        <div class="header-text">
-            <span class="institution-name">Procuraduría de Casos Integrales</span>
-            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
-        </div>
-    </div>
-</header>
+<files>
+This section contains the contents of the repository's files.
 
-    <!-- Contenedor Principal de Login -->
-    <main class="login-container">
-        <div class="login-card">
-            <h2>Inicio de Sesión</h2>
-            <p class="subtitle">Ingrese sus credenciales para acceder al sistema</p>
-            
-            <form action="pages/dashboard.html" method="POST">
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" placeholder="ejemplo@institucion.gob.sv" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <button type="submit" class="btn-primary">Ingresar</button>
-                
-                <div class="form-footer">
-                    <a href="#">¿Olvidó su contraseña?</a>
-                </div>
-            </form>
-        </div>
-    </main>
-
-    <!-- Pie de Página de Seguridad -->
-    <footer class="login-footer">
-        <p>Acceso restringido. Las credenciales son procesadas mediante algoritmos de cifrado robustos.</p>
-        <p>© 2026 - Protección de datos bajo el Decreto N.º 144.</p>
-    </footer>
-</body>
-</html>/* Paleta de Colores Institucionales */
+<file path="assets/css/styles.css">
+/* Paleta de Colores Institucionales */
 :root {
     --azul-medianoche: #1a237e;
     --blanco-institucional: #ffffff;
@@ -632,7 +598,74 @@ select {
 
 /* Colores de botones específicos */
 .success-bg { background-color: #2e7d32 !important; }
-.danger-bg { background-color: #c62828 !important; }<!DOCTYPE html>
+.danger-bg { background-color: #c62828 !important; }
+
+/* --- SOLUCIÓN TÉCNICA FINAL (RNF-USE-01) --- */
+
+/* Estilo del botón hamburguesa que debe ir en el HTML */
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 15px;
+    display: none; /* Oculto en computadoras */
+}
+
+@media (max-width: 768px) {
+    .menu-btn { display: block; } /* Aparece en celulares */
+
+    /* 1. LIBERAR EL CONTENIDO: Anula el bloqueo de las líneas 328/366 */
+    .dashboard-body {
+        height: auto !important; 
+        overflow-y: auto !important; /* Permite bajar con el dedo */
+    }
+
+    .main-wrapper {
+        flex-direction: column !important; /* Apila el menú sobre el contenido */
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* 2. SIDEBAR COLAPSABLE: Se oculta a la izquierda */
+    .sidebar {
+        position: fixed !important;
+        left: -280px; /* Fuera de pantalla */
+        top: 65px;
+        width: 280px !important;
+        height: calc(100vh - 65px) !important;
+        z-index: 1000;
+        transition: 0.3s;
+        background-color: #f0f0f0;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    /* Clase que activa el JavaScript del PDF */
+    .sidebar.active {
+        left: 0 !important;
+    }
+
+    /* 3. ELIMINAR EL MARCO PEQUEÑO: El contenido ocupa su tamaño real */
+    .content-area {
+        flex: none !important; /* Evita que la caja colapse */
+        width: 100% !important;
+        height: auto !important;
+        padding: 15px !important;
+        overflow: visible !important;
+    }
+
+    /* Ajuste de Grillas (RF-004, RF-005) */
+    .metrics-grid, .document-manager-grid, .deadline-manager-grid, .reports-grid, .admin-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .user-profile { display: none; } /* Ganamos espacio en el header */
+}
+</file>
+
+<file path="pages/administracion.html">
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -643,6 +676,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
     <header class="main-header">
+         <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -770,8 +805,21 @@ select {
             </div>
         </main>
     </div>
+ <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
-</html><!DOCTYPE html>
+</html>
+</file>
+
+<file path="pages/clientes.html">
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -782,6 +830,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
    <header class="main-header">
+     <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -889,8 +939,21 @@ select {
             </div>
         </main>
     </div>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
-</html><!DOCTYPE html>
+</html>
+</file>
+
+<file path="pages/dashboard.html">
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -901,6 +964,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
    <header class="main-header">
+     <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo escalado a 45px-50px para evitar recuadros grandes -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -984,8 +1049,20 @@ select {
             </div>
         </main>
     </div>
+ <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
 </body>
-</html><!DOCTYPE html>
+</html>
+</file>
+
+<file path="pages/documentos.html">
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -996,6 +1073,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
     <header class="main-header">
+         <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -1086,8 +1165,21 @@ select {
             </div>
         </main>
     </div>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
-</html><!DOCTYPE html>
+</html>
+</file>
+
+<file path="pages/expedientes.html">
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -1098,6 +1190,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
    <header class="main-header">
+     <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -1233,8 +1327,20 @@ select {
             </div>
         </main>
     </div>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
+</file>
+
+<file path="pages/plazos.html">
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1246,6 +1352,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
     <header class="main-header">
+         <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -1347,8 +1455,20 @@ select {
             </div>
         </main>
     </div>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
+</file>
+
+<file path="pages/reportes.html">
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -1360,6 +1480,8 @@ select {
 <body class="dashboard-body">
     <!-- Encabezado Institucional -->
     <header class="main-header">
+         <!-- Botón de Control del Menú -->
+    <button id="menu-toggle" class="menu-btn">☰</button>
     <div class="logo-container">
         <!-- Logo institucional escalado según CSS -->
         <img src="../assets/img/logo.png" alt="Logo FPCI" class="logo-img">
@@ -1466,5 +1588,73 @@ select {
             </div>
         </main>
     </div>
+ <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+</script>
+
 </body>
 </html>
+</file>
+
+<file path="index.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Sistema de Gestión de Expedientes Legales</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <!-- Encabezado Institucional -->
+    <header class="main-header">
+    <div class="logo-container">
+        <img src="assets/img/logo.png" alt="Logo FPCI" class="logo-img">
+        <div class="header-text">
+            <span class="institution-name">Procuraduría de Casos Integrales</span>
+            <span class="system-name">Sistema de Gestión de Expedientes Legales</span>
+        </div>
+    </div>
+</header>
+
+    <!-- Contenedor Principal de Login -->
+    <main class="login-container">
+        <div class="login-card">
+            <h2>Inicio de Sesión</h2>
+            <p class="subtitle">Ingrese sus credenciales para acceder al sistema</p>
+            
+            <form action="pages/dashboard.html" method="GET">
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@institucion.gob.sv" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Ingresar</button>
+                
+                <div class="form-footer">
+                    <a href="#">¿Olvidó su contraseña?</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Pie de Página de Seguridad -->
+    <footer class="login-footer">
+        <p>Acceso restringido. Las credenciales son procesadas mediante algoritmos de cifrado robustos.</p>
+        <p>© 2026 - Protección de datos bajo el Decreto N.º 144.</p>
+    </footer>
+</body>
+</html>
+</file>
+
+</files>
