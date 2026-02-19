@@ -544,7 +544,25 @@ select {
 .success-bg { background-color: #2e7d32 !important; }
 .danger-bg { background-color: #c62828 !important; }
 
-/* --- SOLUCIÓN TÉCNICA FINAL CORREGIDA (RNF-USE-01) --- */
+/* --- INFO DE USUARIO (ESTILO BASE) --- */
+.mobile-user-info {
+    display: none; /* Se oculta en PC para no estorbar */
+    padding: 15px 25px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+.user-info-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1a237e; /* Azul medianoche */
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* --- SOLUCIÓN TÉCNICA FINAL CONSOLIDADA (RNF-USE-01) --- */
 
 .menu-btn {
     background: none;
@@ -559,10 +577,11 @@ select {
 @media (max-width: 768px) {
     .menu-btn { display: block; }
 
-    /* Evita que el cuerpo se mueva lateralmente */
+    /* 1. FORZAR EL VISOR: Evita el zoom-out inicial */
     html, body {
-        overflow-x: hidden;
-        width: 100%;
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative;
     }
 
     .dashboard-body, .main-wrapper {
@@ -571,7 +590,7 @@ select {
         flex-direction: column !important;
     }
 
-    /* Sidebar fijo para que no empuje el contenido */
+    /* 2. SIDEBAR: Configuración del menú lateral */
     .sidebar {
         position: fixed !important;
         left: -280px; 
@@ -586,33 +605,58 @@ select {
 
     .sidebar.active { left: 0 !important; }
 
-    /* Área de contenido: Ajuste de padding para evitar recortes */
+    /* 3. ÁREA DE CONTENIDO: Camisa de fuerza para el ancho real */
     .content-area {
         width: 100% !important;
-        padding: 15px !important; 
+        max-width: 100vw !important;
+        padding: 10px !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box;
         flex: none !important;
     }
 
-    /* SOLUCIÓN A REPORTES: Apila el título y el botón para que no se encimen */
     .report-header {
         flex-direction: column !important;
         align-items: flex-start !important;
         gap: 15px;
     }
 
-    /* Forzar una sola columna en TODOS los módulos operativos */
-    .metrics-grid, .reports-grid, .admin-grid, .document-manager-grid, .deadline-manager-grid {
-        grid-template-columns: 1fr !important;
+    /* 4. ELIMINAR GRID RIGIDO: Fix para Gestión Documental y Reportes */
+    .metrics-grid, .reports-grid, .document-manager-grid, .admin-grid, .deadline-manager-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 15px;
     }
 
-    /* Tablas con scroll interno: Evita que estiren la página */
-    .data-table {
-        display: block;
+    .table-card, .chart-card, .form-card, .wide, .upload-card {
         width: 100% !important;
-        overflow-x: auto;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 15px !important;
+        overflow-x: hidden;
+    }
+
+    /* 5. TABLAS: Deslizamiento lateral independiente */
+    .data-table, .permissions-table {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
+        border: 1px solid #eee;
     }
 
-    .user-profile { display: none; }
+    /* 6. INFO DE USUARIO: Al final del menú */
+    .user-profile { display: none !important; }
+    .mobile-user-info { 
+        display: block !important; 
+        margin-top: auto !important; 
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 100px);
+    }
 }
