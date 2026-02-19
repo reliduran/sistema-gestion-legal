@@ -1,3 +1,8 @@
+/* REGLA CRÍTICA: Asegura que el contenido encaje en el ancho de la pantalla */
+* {
+    box-sizing: border-box;
+}
+
 /* Paleta de Colores Institucionales */
 :root {
     --azul-medianoche: #1a237e;
@@ -539,73 +544,8 @@ select {
 .success-bg { background-color: #2e7d32 !important; }
 .danger-bg { background-color: #c62828 !important; }
 
-/* --- Ajustes de Responsividad para el Prototipo FPCI (RNF-USE-01) --- */
+/* --- SOLUCIÓN TÉCNICA FINAL CORREGIDA (RNF-USE-01) --- */
 
-{
-    /* 1. Reorientación del Layout Principal */
-    .main-wrapper {
-        flex-direction: column; /* Cambia de fila a columna para apilar Sidebar y Contenido */
-    }
-
-    /* 2. Ajuste del Sidebar a ancho completo */
-    .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--gris-borde);
-    }
-
-    /* 3. Reducción de Escala del Encabezado Institucional */
-    .main-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px;
-    }
-
-    .logo-container {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .institution-name {
-        font-size: 0.9rem; /* Reduce de 1.1rem para evitar desbordamiento */
-    }
-
-    .system-name {
-        font-size: 0.7rem;
-    }
-
-    .user-profile {
-        display: none; /* Oculta el perfil en móvil para ganar espacio vertical */
-    }
-
-    /* 4. Conversión de Grillas a una sola columna */
-    .metrics-grid, 
-    .document-manager-grid, 
-    .deadline-manager-grid, 
-    .reports-grid, 
-    .admin-grid {
-        grid-template-columns: 1fr !important; /* Fuerza una columna en todos los módulos */
-    }
-
-    /* 5. Ajuste de formularios y tablas */
-    .form-row {
-        grid-template-columns: 1fr; /* Apila campos de nombre/apellido o materia/juzgado */
-    }
-
-    .content-area {
-        padding: 15px;
-    }
-
-    .data-table {
-        display: block;
-        overflow-x: auto; /* Permite scroll horizontal en tablas de expedientes/clientes */
-    }
-}
-
-/* --- Lógica de Menú Colapsable (RNF-USE-01) --- */
-
-/* Estilo del botón en el header */
 .menu-btn {
     background: none;
     border: none;
@@ -613,43 +553,66 @@ select {
     font-size: 1.5rem;
     cursor: pointer;
     margin-right: 15px;
-    display: block; /* Visible por defecto */
+    display: none; 
 }
 
 @media (max-width: 768px) {
-    /* 1. Ocultamos el Sidebar por defecto en móvil */
+    .menu-btn { display: block; }
+
+    /* Evita que el cuerpo se mueva lateralmente */
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .dashboard-body, .main-wrapper {
+        height: auto !important;
+        overflow: visible !important;
+        flex-direction: column !important;
+    }
+
+    /* Sidebar fijo para que no empuje el contenido */
     .sidebar {
-        position: fixed;
-        left: -280px; /* Lo saca de la pantalla */
-        top: 65px; /* Debajo del header */
-        height: calc(100vh - 65px);
+        position: fixed !important;
+        left: -280px; 
+        top: 65px;
+        width: 280px !important;
+        height: calc(100vh - 65px) !important;
         z-index: 1000;
         transition: 0.3s;
+        background-color: #f0f0f0;
         box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     }
 
-    /* 2. Cuando se activa, el menú entra desde la izquierda */
-    .sidebar.active {
-        left: 0;
-    }
+    .sidebar.active { left: 0 !important; }
 
-    /* 3. El contenido ahora ocupa TODA la pantalla sin comprimirse */
+    /* Área de contenido: Ajuste de padding para evitar recortes */
     .content-area {
-        flex: 1 !important;
         width: 100% !important;
-        padding: 15px !important;
-        height: auto !important; /* Arregla el error de los 10px */
-        overflow-y: visible !important;
+        padding: 15px !important; 
+        flex: none !important;
     }
 
-    /* 4. Liberamos el Dashboard del bloqueo de altura */
-    .dashboard-body {
-        height: auto !important;
-        overflow: auto !important;
+    /* SOLUCIÓN A REPORTES: Apila el título y el botón para que no se encimen */
+    .report-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px;
     }
-}
 
-/* Ocultar botón en computadoras (opcional) */
-@media (min-width: 769px) {
-    .menu-btn { display: none; }
+    /* Forzar una sola columna en TODOS los módulos operativos */
+    .metrics-grid, .reports-grid, .admin-grid, .document-manager-grid, .deadline-manager-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Tablas con scroll interno: Evita que estiren la página */
+    .data-table {
+        display: block;
+        width: 100% !important;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .user-profile { display: none; }
 }
