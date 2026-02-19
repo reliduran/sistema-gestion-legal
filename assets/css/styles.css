@@ -305,6 +305,14 @@ input[type="email"], input[type="password"] {
     border-radius: 3px;
     cursor: pointer;
 }
+
+/* Estilo para Baja Lógica (RF-020) */
+.badge.danger {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
 /* Gestión de Expedientes */
 .case-manager-grid {
     display: flex;
